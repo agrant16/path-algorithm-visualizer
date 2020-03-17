@@ -5,7 +5,9 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## How to Use the App
 
 
-A live demo of the application is here.
+A live demo of the application is [here](http://agrant16.github.io/path-algorithm-visualizer).
+This app is best viewed and used on screens with a width of 1300px or larger. 
+It is a simple React.js app and is not built to be responsive. 
 
 ### Selecting an Algorithm and Running the Visualizer
 
