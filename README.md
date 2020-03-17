@@ -26,7 +26,7 @@ Once the end node is reached the shortest path will be displayed.
 The app will automatically generate edge weights for algorithms that are meant for weighted graphs. 
 These edge weights represent the distance to travel to that node from its neighbors, and are displayed in the center of each node. 
 In the case of this app neighbors are considered to be those nodes directly next to the current node in the four main directions: up, down, left, right.
-If the algorithm does not need these weights, then none will be generated.
+If the algorithm does not need these weights none will be generated, and a "-" will be displayed in place of a numerical value.
 
 ### Building Walls
 
