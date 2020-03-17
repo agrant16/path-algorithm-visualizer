@@ -47,6 +47,7 @@ export default class Visualizer extends Component {
   }
 
   algoChange(text) {
+    this.clearBoard();
     let { algo, algoText, grid } = this.state;
     switch (text) {
       case "Dijkstra":
@@ -97,7 +98,9 @@ export default class Visualizer extends Component {
     const startNode = grid.grid[START_ROW][START_COL];
     const endNode = grid.grid[END_ROW][END_COL];
     let visitedNodesInOrder = traverser.traverse(grid.grid, startNode, endNode);
-    let shortestPath = traverser.getShortestPath(endNode);
+    console.log(visitedNodesInOrder.map(node => node.previous));
+    let shortestPath = traverser.getShortestPath(startNode, endNode);
+    console.log(shortestPath);
     this.state.animator.animate(visitedNodesInOrder, shortestPath);
     this.setState({ visualized: true });
   }
