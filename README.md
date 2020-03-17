@@ -1,6 +1,6 @@
 # Path Algorithm Visualizer
 
-![Gif of Dijkstra's with walls](https://github.com/agrant16/path-algorithm-visualizer/blob/master/path-algorithm-gif.gif)
+![Gif of Dijkstra's with walls](https://github.com/agrant16/path-algorithm-visualizer/blob/master/path-visualizer-gif.gif)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and is built using React.js and Bootstrap through react-bootstrap. 
 
