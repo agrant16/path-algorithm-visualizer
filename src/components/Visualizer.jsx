@@ -121,6 +121,7 @@ export default class Visualizer extends Component {
   }
 
   newWeights() {
+    this.clearBoard();
     const { algo } = this.state;
     const grid = new Grid(algo.weighted);
     this.setState({ grid: grid });
