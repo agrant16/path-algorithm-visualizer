@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import "./Node.css";
 
 /*
-React compoenent used to represent the Nodes in the generate page. 
+React compoenent used to represent the Nodes in the generated page.
 */
 export default class Node extends Component {
   render() {
