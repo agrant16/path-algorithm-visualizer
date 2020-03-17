@@ -16,6 +16,7 @@ export default class Visualizer extends Component {
     super(props);
     this.state = {
       algo: Dijkstra,
+      algoText: "Dijkstra's",
       speed: "fast",
       grid: new Grid(Dijkstra.weighted),
       mouseIsPressed: false,
@@ -46,21 +47,23 @@ export default class Visualizer extends Component {
   }
 
   algoChange(text) {
-    let { algo, grid } = this.state;
+    let { algo, algoText, grid } = this.state;
     switch (text) {
       case "Dijkstra":
         algo = Dijkstra;
+        algoText = "Dijkstra's";
         grid = new Grid(algo.weighted);
         break;
       case "BFS":
         algo = BFS;
+        algoText = "Breadth-First Search";
         grid = new Grid(algo.weighted);
         break;
       default:
         return;
     }
 
-    this.setState({ algo: algo, grid: grid });
+    this.setState({ algo: algo, algoText: algoText, grid: grid });
   }
 
   speedChange(text) {
@@ -143,6 +146,8 @@ export default class Visualizer extends Component {
           clearBoard={this.clearBoard}
           changeWeights={this.newWeights}
         ></Header>
+
+        <h3>The current algorithm is {this.state.algoText}.</h3>
         <div className="board">
           {grid.grid.map((row, rowIndex) => {
             return (
