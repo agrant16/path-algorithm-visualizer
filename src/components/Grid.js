@@ -1,4 +1,8 @@
 import { START_ROW, START_COL, END_ROW, END_COL } from "../constants";
+
+/*
+Grid class for storing the graph and the nodes therein. 
+*/
 export default class Grid {
   constructor(weighted) {
     this.grid = this.initializeGrid(weighted);

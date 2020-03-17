@@ -1,8 +1,11 @@
+/*
+Implementation of Dijkstra's algorithm in JavaScript.
+*/
 import Pathfinder from "./Pathfinder";
-import PriorityQueue from "js-priority-queue";
 
 export default class Dijkstra extends Pathfinder {
   static weighted = true;
+
   traverse(grid, startNode, endNode) {
     const visitedNodesInOrder = [];
     startNode.distance = 0;

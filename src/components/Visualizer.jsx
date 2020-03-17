@@ -7,6 +7,9 @@ import Grid from "./Grid";
 import { START_ROW, START_COL, END_ROW, END_COL } from "../constants";
 import "./Visualizer.css";
 
+/*
+Visualizer component which controls much of the functionality of the app.
+*/
 export default class Visualizer extends Component {
   constructor(props) {
     super(props);
@@ -15,13 +18,15 @@ export default class Visualizer extends Component {
       speed: "fast",
       grid: new Grid(Dijkstra.weighted),
       mouseIsPressed: false,
-      animator: new Animator()
+      animator: new Animator(),
+      visualize: false
     };
 
     this.visualize = this.visualize.bind(this);
     this.speedChange = this.speedChange.bind(this);
     this.algoChange = this.algoChange.bind(this);
     this.clearBoard = this.clearBoard.bind(this);
+    this.newWeights = this.newWeights.bind(this);
   }
 
   handleMouseDown(row, col) {
@@ -75,13 +80,18 @@ export default class Visualizer extends Component {
   }
 
   visualize() {
-    const { grid, algo } = this.state;
+    const { grid, algo, visualized } = this.state;
+    if (visualized) {
+      this.clearBoard();
+      this.setState({ visualized: false });
+    }
     const traverser = new algo();
     const startNode = grid.grid[START_ROW][START_COL];
     const endNode = grid.grid[END_ROW][END_COL];
     let visitedNodesInOrder = traverser.traverse(grid.grid, startNode, endNode);
     let shortestPath = traverser.getShortestPath(endNode);
     this.state.animator.animate(visitedNodesInOrder, shortestPath);
+    this.setState({ visualized: true });
   }
 
   clearBoard() {
@@ -107,6 +117,7 @@ export default class Visualizer extends Component {
         }
       }
     }
+    this.setState({ visualized: false });
   }
 
   newWeights() {
@@ -124,6 +135,7 @@ export default class Visualizer extends Component {
           changeAlgo={this.handleAlgoChange}
           changeSpeed={this.handleSpeedChange}
           clearBoard={this.clearBoard}
+          changeWeights={this.newWeights}
         ></Header>
         <div className="board">
           {grid.grid.map((row, rowIndex) => {

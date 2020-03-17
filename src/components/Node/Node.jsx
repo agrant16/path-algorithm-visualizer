@@ -2,6 +2,9 @@ import React, { Component } from "react";
 
 import "./Node.css";
 
+/*
+React compoenent used to represent the Nodes in the generate page. 
+*/
 export default class Node extends Component {
   render() {
     const {
