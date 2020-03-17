@@ -2,6 +2,10 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and is built using React.js and Bootstrap through react-bootstrap. 
 
+## Currently Implemented Algorithms
+* Dijkstra's Shortest Path
+* Breadth-First Search
+
 ## How to Use the App
 
 
@@ -12,7 +16,6 @@ It is a simple React.js app and is not built to be responsive.
 ### Selecting an Algorithm and Running the Visualizer
 
 You can select a path algorithm using the Algorithms dropdown menu from the navbar.
-Currently only Dijkstra's algorithm is implemented. 
 The starting node for the algorithm is represented by the green node on the graph and the end node is represented by the red node.
 You cannot currently change the positions of the starting and ending nodes, though that is a planned feature. 
 Once an algorithm is selected you can visualize the algorithm by pressing the "Visualize It!" button. 
@@ -32,6 +35,8 @@ To do so simply click on a node in the graph and it will change colors to black,
 You can click your mouse, hold it and drag it in order to create larger walls. 
 Clicking, or dragging your cursor over, existing walls will make turn those walls back to normal nodes. 
 Note that if you add walls after running the visualizer without first clearing the board these walls will be destroyed when you run the visualizer again. 
+
+## Running the app on your local machine. 
 
 ## Available Scripts
 
