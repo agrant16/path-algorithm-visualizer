@@ -1,0 +1,17 @@
+.navbar-dark {
+  color: white;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.mr-auto {
+  color: white;
+}
+
+.visualize-it {
+  border: none;
+}
+
+.visualize-it:hover {
+  background-color: green;
+}
