@@ -36,6 +36,13 @@ export default class Header extends Component {
                 >
                   BFS
                 </NavDropdown.Item>
+                <NavDropdown.Item
+                  href="#"
+                  className="my-dropdown-item"
+                  onClick={() => this.props.changeAlgo("DFS")}
+                >
+                  DFS
+                </NavDropdown.Item>
               </NavDropdown>
               <Button
                 className="non-visualize-button"

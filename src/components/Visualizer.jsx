@@ -4,6 +4,7 @@ import Node from "./Node/Node";
 import Animator from "./Animator";
 import Dijkstra from "../algorithms/Dijkstra";
 import BFS from "../algorithms/BFS";
+import DFS from "../algorithms/DFS";
 import Grid from "./Grid";
 import { START_ROW, START_COL, END_ROW, END_COL } from "../constants";
 import "./Visualizer.css";
@@ -58,6 +59,11 @@ export default class Visualizer extends Component {
       case "BFS":
         algo = BFS;
         algoText = "Breadth-First Search";
+        grid = new Grid(algo.weighted);
+        break;
+      case "DFS":
+        algo = DFS;
+        algoText = "Depth-First Search";
         grid = new Grid(algo.weighted);
         break;
       default:

@@ -14,12 +14,12 @@ export default class DFS extends Pathfinder {
       if (currentNode === endNode) {
         return visitedNodesInOrder;
       }
+      visitedNodesInOrder.push(currentNode);
       let neighbors = this.getUnvisitedNeighbors(currentNode, grid);
       for (const neighbor of neighbors) {
         neighbor.isVisited = true;
         neighbor.previous = currentNode;
         unvisited.push(neighbor);
-        visitedNodesInOrder.push(neighbor);
       }
     }
   }
