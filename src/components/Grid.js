@@ -1,7 +1,7 @@
 import { START_ROW, START_COL, END_ROW, END_COL } from "../constants";
 
 /*
-Grid class for storing the graph and the nodes therein. 
+Grid class for storing the graph and the nodes therein.
 */
 export default class Grid {
   constructor(weighted) {
@@ -9,7 +9,7 @@ export default class Grid {
   }
 
   initializeNode(row, col, weighted) {
-    let weight = Infinity;
+    let weight = null;
     if (weighted) {
       weight = Math.floor(Math.random() * 5) + 1;
     }
