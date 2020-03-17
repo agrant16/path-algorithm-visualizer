@@ -22,5 +22,6 @@ export default class DFS extends Pathfinder {
         unvisited.push(neighbor);
       }
     }
+    return visitedNodesInOrder;
   }
 }
