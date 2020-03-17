@@ -32,6 +32,8 @@ export default class Visualizer extends Component {
     this.newWeights = this.newWeights.bind(this);
   }
 
+  /* The handleMouseXxxx functions handle the
+  modifying of nodes to become walls.*/
   handleMouseDown(row, col) {
     this.state.grid.toggleWall(row, col);
     this.setState({ mouseIsPressed: true });
@@ -47,32 +49,38 @@ export default class Visualizer extends Component {
     this.setState({ mouseIsPressed: false });
   }
 
+  /* Handles the selection of algorithms.*/
   algoChange(text) {
-    this.clearBoard();
-    let { algo, algoText, grid } = this.state;
+    this.clearBoard(false);
+    let newAlgo = null;
+    let newAlgoText = null;
+    let newGrid = null;
+    const { grid } = this.state;
     switch (text) {
       case "Dijkstra":
-        algo = Dijkstra;
-        algoText = "Dijkstra's";
-        grid = new Grid(algo.weighted);
+        newAlgo = Dijkstra;
+        newAlgoText = "Dijkstra's";
+        newGrid = new Grid(Dijkstra.weighted);
         break;
       case "BFS":
-        algo = BFS;
-        algoText = "Breadth-First Search";
-        grid = new Grid(algo.weighted);
+        newAlgo = BFS;
+        newAlgoText = "Breadth-First Search";
+        newGrid = new Grid(BFS.weighted);
         break;
       case "DFS":
-        algo = DFS;
-        algoText = "Depth-First Search";
-        grid = new Grid(algo.weighted);
+        newAlgo = DFS;
+        newAlgoText = "Depth-First Search";
+        newGrid = new Grid(DFS.weighted);
         break;
       default:
         return;
     }
-
-    this.setState({ algo: algo, algoText: algoText, grid: grid });
+    newGrid = this.keepWalls(grid, newGrid);
+    this.setState({ algo: newAlgo, algoText: newAlgoText, grid: newGrid });
   }
 
+  /* Handles the speed selection updating.
+  This feature is currently not implemented.*/
   speedChange(text) {
     let { visitedSpeed, shortestSpeed } = [0, 0];
     switch (text) {
@@ -94,34 +102,40 @@ export default class Visualizer extends Component {
     this.state.animator.updateSpeed(visitedSpeed, shortestSpeed);
   }
 
+  /* Runs the process of visualizing the algorithm.*/
   visualize() {
     const { grid, algo, visualized } = this.state;
     if (visualized) {
-      this.clearBoard();
+      this.clearBoard(false);
       this.setState({ visualized: false });
     }
     const traverser = new algo();
     const startNode = grid.grid[START_ROW][START_COL];
     const endNode = grid.grid[END_ROW][END_COL];
     let visitedNodesInOrder = traverser.traverse(grid.grid, startNode, endNode);
-    console.log(visitedNodesInOrder.map(node => node.previous));
     let shortestPath = traverser.getShortestPath(startNode, endNode);
-    console.log(shortestPath);
     this.state.animator.animate(visitedNodesInOrder, shortestPath);
     this.setState({ visualized: true });
   }
 
-  clearBoard() {
+  /* Resets the nodes back to default state if removeWalls === true.
+  If removeWalls === false, then walls are kept in place.*/
+  clearBoard(removeWalls) {
     const { grid } = this.state;
     for (let row = 0; row < 20; row++) {
       for (let col = 0; col < 50; col++) {
         let node = grid.grid[row][col];
         document.getElementById(`node-${node.row}-${node.col}`).className =
           "node ";
-        node.isWall = false;
         node.isVisited = false;
         node.previous = null;
         node.distance = Infinity;
+        if (node.isWall && removeWalls) {
+          node.isWall = false;
+        } else if (node.isWall) {
+          document.getElementById(`node-${node.row}-${node.col}`).className =
+            "node node-wall";
+        }
         if (row === START_ROW && col === START_COL) {
           document.getElementById(`node-${START_ROW}-${START_COL}`).className =
             "node node-start";
@@ -134,14 +148,35 @@ export default class Visualizer extends Component {
         }
       }
     }
-    this.setState({ visualized: false });
+    this.setState({ grid: grid, visualized: false });
   }
 
+  /* Creates a new Grid object with new weights.*/
   newWeights() {
-    this.clearBoard();
-    const { algo } = this.state;
-    const grid = new Grid(algo.weighted);
-    this.setState({ grid: grid });
+    this.clearBoard(false);
+    const { grid, algo } = this.state;
+    const newGrid = new Grid(algo.weighted);
+    for (let row = 0; row < 20; row++) {
+      for (let col = 0; col < 50; col++) {
+        if (grid.grid[row][col].isWall) {
+          newGrid.grid[row][col].isWall = true;
+        }
+      }
+    }
+    this.setState({ grid: newGrid });
+  }
+
+  /* Function to transfer wall locations from
+the previous grid to a new grid.*/
+  keepWalls(grid, newGrid) {
+    for (let row = 0; row < 20; row++) {
+      for (let col = 0; col < 50; col++) {
+        if (grid.grid[row][col].isWall) {
+          newGrid.grid[row][col].isWall = true;
+        }
+      }
+    }
+    return newGrid;
   }
 
   render() {
