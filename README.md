@@ -5,7 +5,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## How to Use the App
 
 
-A live demo of the application is [here](agrant16.github.io/path-algorithm-visualizer).
+A live demo of the application is [here](http://agrant16.github.io/path-algorithm-visualizer).
 
 ### Selecting an Algorithm and Running the Visualizer
 
