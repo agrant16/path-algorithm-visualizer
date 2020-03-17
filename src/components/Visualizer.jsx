@@ -3,6 +3,7 @@ import Header from "./Header/Header";
 import Node from "./Node/Node";
 import Animator from "./Animator";
 import Dijkstra from "../algorithms/Dijkstra";
+import BFS from "../algorithms/BFS";
 import Grid from "./Grid";
 import { START_ROW, START_COL, END_ROW, END_COL } from "../constants";
 import "./Visualizer.css";
@@ -47,9 +48,13 @@ export default class Visualizer extends Component {
   algoChange(text) {
     let { algo, grid } = this.state;
     switch (text) {
-      case "dijkstra":
+      case "Dijkstra":
         algo = Dijkstra;
-        grid = new Grid(algo.weight);
+        grid = new Grid(algo.weighted);
+        break;
+      case "BFS":
+        algo = BFS;
+        grid = new Grid(algo.weighted);
         break;
       default:
         return;
@@ -133,8 +138,8 @@ export default class Visualizer extends Component {
       <div>
         <Header
           visualize={this.visualize}
-          changeAlgo={this.handleAlgoChange}
-          changeSpeed={this.handleSpeedChange}
+          changeAlgo={this.algoChange}
+          changeSpeed={this.speedChange}
           clearBoard={this.clearBoard}
           changeWeights={this.newWeights}
         ></Header>
