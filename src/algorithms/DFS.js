@@ -1,6 +1,5 @@
 import Pathfinder from "./Pathfinder";
-/* Class for Breadth-first-search */
-export default class BFS extends Pathfinder {
+export default class DFS extends Pathfinder {
   static weighted = false;
 
   traverse(grid, startNode, endNode) {
@@ -11,7 +10,7 @@ export default class BFS extends Pathfinder {
     unvisited.push(startNode);
     visitedNodesInOrder.push(startNode);
     while (unvisited.length !== 0) {
-      let currentNode = unvisited.shift();
+      let currentNode = unvisited.pop();
       if (currentNode === endNode) {
         return visitedNodesInOrder;
       }
