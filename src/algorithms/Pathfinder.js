@@ -18,7 +18,7 @@ export default class Pathfinder {
       startNode to get the shortest path */
     const shortestPath = [];
     let currentNode = endNode;
-    while (currentNode !== startNode) {
+    while (currentNode !== null && currentNode !== startNode) {
       shortestPath.unshift(currentNode);
       currentNode = currentNode.previous;
     }

@@ -23,5 +23,6 @@ export default class BFS extends Pathfinder {
         visitedNodesInOrder.push(neighbor);
       }
     }
+    return visitedNodesInOrder;
   }
 }
