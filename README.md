@@ -7,6 +7,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## Currently Implemented Algorithms
 * [Dijkstra's Shortest Path](https://en.wikipedia.org/w/index.php?title=Special:Search&search=Dijkstra%27s+algorithm)
 * [Breadth-First Search](https://en.wikipedia.org/wiki/Breadth-first_search)
+* [Depth-First Search](https://en.wikipedia.org/wiki/Depth-first_search)
 
 ## How to Use the App
 
