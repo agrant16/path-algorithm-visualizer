@@ -19,10 +19,20 @@ export default class Visualizer extends Component {
       algo: Dijkstra,
       algoText: "Dijkstra's",
       speed: "fast",
-      grid: new Grid(Dijkstra.weighted),
+      grid: new Grid(
+        Dijkstra.weighted,
+        [START_ROW, START_COL],
+        [END_ROW, END_COL]
+      ),
       mouseIsPressed: false,
       animator: new Animator(),
-      visualize: false
+      visualize: false,
+      start: [START_ROW, START_COL],
+      prevStart: null,
+      end: [END_ROW, END_COL],
+      prevEnd: null,
+      movingStart: false,
+      movingEnd: false
     };
 
     this.visualize = this.visualize.bind(this);
@@ -35,18 +45,53 @@ export default class Visualizer extends Component {
   /* The handleMouseXxxx functions handle the
   modifying of nodes to become walls.*/
   handleMouseDown(row, col) {
-    this.state.grid.toggleWall(row, col);
-    this.setState({ mouseIsPressed: true });
+    const { grid, start, prevStart, end, movingStart } = this.state;
+    if (row === start[0] && col === start[1]) {
+      this.setState({ movingStart: true });
+    } else if (row === end[0] && col === end[1]) {
+      this.setState({ movingEnd: true });
+    } else {
+      grid.toggleWall(row, col);
+    }
+    this.setState({ grid: grid, mouseIsPressed: true });
   }
 
   handleMouseEnter(row, col) {
-    if (!this.state.mouseIsPressed) return;
-    this.state.grid.toggleWall(row, col);
-    this.setState({ mouseIsPressed: true });
+    const {
+      grid,
+      start,
+      end,
+      mouseIsPressed,
+      movingStart,
+      movingEnd,
+      prevStart
+    } = this.state;
+    if (!mouseIsPressed) return;
+    if (movingStart) {
+      grid.toggleStart(row, col);
+      grid.toggleStart(start[0], start[1]);
+      this.setState({
+        start: [row, col],
+        movingStart: true
+      });
+    } else if (movingEnd) {
+      grid.toggleEnd(row, col);
+      grid.toggleEnd(end[0], end[1]);
+      this.setState({ end: [row, col], movingEnd: true });
+    } else {
+      grid.toggleWall(row, col);
+    }
+    this.setState({
+      grid: grid
+    });
   }
 
   handleMouseUp() {
-    this.setState({ mouseIsPressed: false });
+    this.setState({
+      mouseIsPressed: false,
+      movingStart: false,
+      movingEnd: false
+    });
   }
 
   /* Handles the selection of algorithms.*/
@@ -55,22 +100,22 @@ export default class Visualizer extends Component {
     let newAlgo = null;
     let newAlgoText = null;
     let newGrid = null;
-    const { grid } = this.state;
+    const { grid, start, end } = this.state;
     switch (text) {
       case "Dijkstra":
         newAlgo = Dijkstra;
         newAlgoText = "Dijkstra's";
-        newGrid = new Grid(Dijkstra.weighted);
+        newGrid = new Grid(Dijkstra.weighted, start, end);
         break;
       case "BFS":
         newAlgo = BFS;
         newAlgoText = "Breadth-First Search";
-        newGrid = new Grid(BFS.weighted);
+        newGrid = new Grid(BFS.weighted, start, end);
         break;
       case "DFS":
         newAlgo = DFS;
         newAlgoText = "Depth-First Search";
-        newGrid = new Grid(DFS.weighted);
+        newGrid = new Grid(DFS.weighted, start, end);
         break;
       default:
         return;
@@ -104,24 +149,24 @@ export default class Visualizer extends Component {
 
   /* Runs the process of visualizing the algorithm.*/
   visualize() {
-    const { grid, algo, visualized } = this.state;
+    const { grid, algo, visualized, start, end, animator } = this.state;
     if (visualized) {
       this.clearBoard(false);
       this.setState({ visualized: false });
     }
     const traverser = new algo();
-    const startNode = grid.grid[START_ROW][START_COL];
-    const endNode = grid.grid[END_ROW][END_COL];
+    const startNode = grid.grid[start[0]][start[1]];
+    const endNode = grid.grid[end[0]][end[1]];
     let visitedNodesInOrder = traverser.traverse(grid.grid, startNode, endNode);
     let shortestPath = traverser.getShortestPath(startNode, endNode);
-    this.state.animator.animate(visitedNodesInOrder, shortestPath);
+    animator.animate(visitedNodesInOrder, shortestPath);
     this.setState({ visualized: true });
   }
 
   /* Resets the nodes back to default state if removeWalls === true.
   If removeWalls === false, then walls are kept in place.*/
   clearBoard(removeWalls) {
-    const { grid } = this.state;
+    const { grid, start, end } = this.state;
     for (let row = 0; row < 20; row++) {
       for (let col = 0; col < 50; col++) {
         let node = grid.grid[row][col];
@@ -154,8 +199,8 @@ export default class Visualizer extends Component {
   /* Creates a new Grid object with new weights.*/
   newWeights() {
     this.clearBoard(false);
-    const { grid, algo } = this.state;
-    const newGrid = new Grid(algo.weighted);
+    const { grid, algo, start, end } = this.state;
+    const newGrid = new Grid(algo.weighted, start, end);
     for (let row = 0; row < 20; row++) {
       for (let col = 0; col < 50; col++) {
         if (grid.grid[row][col].isWall) {

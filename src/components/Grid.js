@@ -1,14 +1,12 @@
-import { START_ROW, START_COL, END_ROW, END_COL } from "../constants";
-
 /*
 Grid class for storing the graph and the nodes therein.
 */
 export default class Grid {
-  constructor(weighted) {
-    this.grid = this.initializeGrid(weighted);
+  constructor(weighted, start, end) {
+    this.grid = this.initializeGrid(weighted, start, end);
   }
 
-  initializeNode(row, col, weighted) {
+  initializeNode(row, col, weighted, start, end) {
     let weight = "0";
     if (weighted) {
       weight = Math.floor(Math.random() * 5) + 1;
@@ -16,8 +14,8 @@ export default class Grid {
     return {
       col,
       row,
-      isEnd: row === END_ROW && col === END_COL,
-      isStart: row === START_ROW && col === START_COL,
+      isEnd: row === end[0] && col === end[1],
+      isStart: row === start[0] && col === start[1],
       isVisited: false,
       isWall: false,
       distance: Infinity,
@@ -26,20 +24,27 @@ export default class Grid {
     };
   }
 
-  initializeGrid(weighted) {
+  initializeGrid(weighted, start, end) {
     const grid = [];
     for (let row = 0; row < 20; row++) {
       const newRow = [];
       for (let col = 0; col < 50; col++) {
-        newRow.push(this.initializeNode(row, col, weighted));
+        newRow.push(this.initializeNode(row, col, weighted, start, end));
       }
       grid.push(newRow);
     }
     return grid;
   }
 
+  toggleStart(row, col) {
+    this.grid[row][col].isStart = !this.grid[row][col].isStart;
+    this.grid[row][col].isWall = false;
+  }
+  toggleEnd(row, col) {
+    this.grid[row][col].isEnd = !this.grid[row][col].isEnd;
+    this.grid[row][col].isWall = false;
+  }
   toggleWall(row, col) {
     this.grid[row][col].isWall = !this.grid[row][col].isWall;
-    this.grid[row][col].isVisited = !this.grid[row][col].isVisited;
   }
 }

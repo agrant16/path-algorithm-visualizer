@@ -58,7 +58,7 @@
     transform: scale(0.25);
     background-color: blue;
   }
-  75% {
+  50% {
     background-color: green;
     transform: scale(1.1);
   }
@@ -79,7 +79,7 @@
     transform: scale(0.25);
     background-color: red;
   }
-  75% {
+  50% {
     transform: scale(1.1);
     background-color: orange;
   }
