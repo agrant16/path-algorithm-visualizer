@@ -23,7 +23,7 @@ The starting node for the algorithm is represented by the green node on the grap
 You cannot currently change the positions of the starting and ending nodes, though that is a planned feature. 
 Once an algorithm is selected you can visualize the algorithm by pressing the "Visualize It!" button. 
 Doing so will change the color of nodes on the grpah in the order they are visited. 
-Once the end node is reached the shortest path will be displayed. 
+Once the end node is reached the shortest path will be displayed in yellow. 
 
 ### Weighted Graphs and Non-Weighted Graphs
 The app will automatically generate edge weights for algorithms that are meant for weighted graphs. 
@@ -36,6 +36,6 @@ If the algorithm does not need these weights none will be generated, and a "-" w
 You can build walls to eliminate some nodes from the graph. 
 To do so simply click on a node in the graph and it will change colors to black, signifying that it is now a wall. 
 You can click your mouse, hold it and drag it in order to create larger walls. 
-Clicking, or dragging your cursor over, existing walls will make turn those walls back to normal nodes. 
-Note that if you add walls after running the visualizer without first clearing the board these walls will be destroyed when you run the visualizer again. 
-
+Clicking, or dragging your cursor over, existing walls will turn those walls back to normal nodes. 
+You can adjust walls during the animation, but note that because of the way the animation is done it will not have any effect on the current visualization. 
+It will, however, affect subsequent visualizations. 
