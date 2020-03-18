@@ -15,6 +15,7 @@ Visualizer component which controls much of the functionality of the app.
 export default class Visualizer extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       algo: Dijkstra,
       algoText: "Dijkstra's",
