@@ -1,6 +1,7 @@
 # Path Algorithm Visualizer
 
 ![Gif of Dijkstra's with walls](https://github.com/agrant16/path-algorithm-visualizer/blob/master/path-visualizer-gif.gif)
+* An older version of the application, but still a good demo.*
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and is built using React.js and Bootstrap through react-bootstrap. 
 
@@ -12,7 +13,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## How to Use the App
 
 
-A live demo of the application is [here](http://agrant16.github.io/path-algorithm-visualizer).
+A live demo of the application can be found [here](http://agrant16.github.io/path-algorithm-visualizer).
 This app is best viewed and used on screens with a width of 1300px or larger. 
 It is a simple React.js app and is not built to be responsive. 
 
@@ -20,9 +21,10 @@ It is a simple React.js app and is not built to be responsive.
 
 You can select a path algorithm using the Algorithms dropdown menu from the navbar.
 The starting node for the algorithm is represented by the green node on the graph and the end node is represented by the red node.
-You cannot currently change the positions of the starting and ending nodes, though that is a planned feature. 
+You can alter the positions of the starting and ending nodes, by clicking and draggin them. 
+Any changes to the starting and ending node's locations will persist until the "Clear Board" button is pressed. 
 Once an algorithm is selected you can visualize the algorithm by pressing the "Visualize It!" button. 
-Doing so will change the color of nodes on the grpah in the order they are visited. 
+Doing so will change the color of nodes on the graph in the order they are visited. 
 Once the end node is reached the shortest path will be displayed in yellow. 
 
 ### Weighted Graphs and Non-Weighted Graphs
@@ -39,3 +41,5 @@ You can click your mouse, hold it and drag it in order to create larger walls.
 Clicking, or dragging your cursor over, existing walls will turn those walls back to normal nodes. 
 You can adjust walls during the animation, but note that because of the way the animation is done it will not have any effect on the current visualization. 
 It will, however, affect subsequent visualizations. 
+Any walls built will persist through algorithm changes, weight changes, and visualizations. 
+To remove walls you will need to use the "Clear Board" button. 
