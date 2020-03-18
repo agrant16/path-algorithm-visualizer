@@ -47,7 +47,7 @@
 }
 
 .node-visited {
-  background-color: #7fcde1;
+  background-color: #3074f2;
   animation-name: visited;
   animation-duration: 3s;
 }
@@ -55,20 +55,20 @@
 @keyframes visited {
   from {
     transform: scale(0.25);
-    background-color: blue;
+    background-color: red;
   }
   50% {
-    background-color: green;
+    background-color: purple;
     transform: scale(1);
   }
   to {
     transform: scale(1);
-    background-color: #7fcde1;
+    background-color: #3074f2;
   }
 }
 
 .node-shortest-path {
-  background-color: #fffd81;
+  background-color: yellow;
   animation-name: shortest;
   animation-duration: 3s;
 }
@@ -84,6 +84,6 @@
   }
   to {
     transform: scale(1);
-    background-color: #fffd81;
+    background-color: yellow;
   }
 }
