@@ -6,9 +6,10 @@ import Dijkstra from "../algorithms/Dijkstra";
 import BFS from "../algorithms/BFS";
 import DFS from "../algorithms/DFS";
 import Grid from "./Grid";
-import { START_ROW, START_COL, END_ROW, END_COL } from "../constants";
 import "./Visualizer.css";
 
+const DEFAULT_START = [9, 9];
+const DEFAULT_END = [9, 39];
 /*
 Visualizer component which controls much of the functionality of the app.
 */
@@ -20,18 +21,12 @@ export default class Visualizer extends Component {
       algo: Dijkstra,
       algoText: "Dijkstra's",
       speed: "fast",
-      grid: new Grid(
-        Dijkstra.weighted,
-        [START_ROW, START_COL],
-        [END_ROW, END_COL]
-      ),
+      grid: new Grid(Dijkstra.weighted, DEFAULT_START, DEFAULT_END),
       mouseIsPressed: false,
       animator: new Animator(),
       visualize: false,
-      start: [START_ROW, START_COL],
-      prevStart: null,
-      end: [END_ROW, END_COL],
-      prevEnd: null,
+      start: DEFAULT_START,
+      end: DEFAULT_END,
       movingStart: false,
       movingEnd: false
     };
@@ -97,11 +92,11 @@ export default class Visualizer extends Component {
 
   /* Handles the selection of algorithms.*/
   algoChange(text) {
-    this.clearBoard(false);
     let newAlgo = null;
     let newAlgoText = null;
     let newGrid = null;
     const { grid, start, end } = this.state;
+    this.unvisitNodes(false, start, end);
     switch (text) {
       case "Dijkstra":
         newAlgo = Dijkstra;
@@ -152,7 +147,7 @@ export default class Visualizer extends Component {
   visualize() {
     const { grid, algo, visualized, start, end, animator } = this.state;
     if (visualized) {
-      this.clearBoard(false);
+      this.unvisitNodes(false, start, end);
       this.setState({ visualized: false });
     }
     const traverser = new algo();
@@ -164,10 +159,8 @@ export default class Visualizer extends Component {
     this.setState({ visualized: true });
   }
 
-  /* Resets the nodes back to default state if removeWalls === true.
-  If removeWalls === false, then walls are kept in place.*/
-  clearBoard(removeWalls) {
-    const { grid, start, end } = this.state;
+  unvisitNodes(removeWalls, start, end) {
+    const { grid } = this.state;
     for (let row = 0; row < 20; row++) {
       for (let col = 0; col < 50; col++) {
         let node = grid.grid[row][col];
@@ -182,13 +175,13 @@ export default class Visualizer extends Component {
           document.getElementById(`node-${node.row}-${node.col}`).className =
             "node node-wall";
         }
-        if (row === START_ROW && col === START_COL) {
-          document.getElementById(`node-${START_ROW}-${START_COL}`).className =
+        if (row === start[0] && col === start[1]) {
+          document.getElementById(`node-${start[0]}-${start[1]}`).className =
             "node node-start";
           node.isStart = true;
         }
-        if (row === END_ROW && col === END_COL) {
-          document.getElementById(`node-${END_ROW}-${END_COL}`).className =
+        if (row === end[0] && col === end[1]) {
+          document.getElementById(`node-${end[0]}-${end[1]}`).className =
             "node node-end";
           node.isEnd = true;
         }
@@ -196,11 +189,16 @@ export default class Visualizer extends Component {
     }
     this.setState({ grid: grid, visualized: false });
   }
+  /* Resets the nodes back to default state if removeWalls === true.
+  If removeWalls === false, then walls are kept in place.*/
+  clearBoard() {
+    this.unvisitNodes(true, DEFAULT_START, DEFAULT_END);
+  }
 
   /* Creates a new Grid object with new weights.*/
   newWeights() {
-    this.clearBoard(false);
     const { grid, algo, start, end } = this.state;
+    this.unvisitNodes(false, start, end);
     const newGrid = new Grid(algo.weighted, start, end);
     for (let row = 0; row < 20; row++) {
       for (let col = 0; col < 50; col++) {
