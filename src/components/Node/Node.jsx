@@ -20,14 +20,16 @@ export default class Node extends Component {
       weight
     } = this.props;
     return (
-      <div
-        id={`node-${row}-${col}`}
-        className={`node ${nodeType(this.props)}`}
-        onMouseDown={() => onMouseDown(row, col)}
-        onMouseEnter={() => onMouseEnter(row, col)}
-        onMouseUp={() => onMouseUp()}
-      >
-        {weight}
+      <div className="node-box">
+        <div
+          id={`node-${row}-${col}`}
+          className={`node ${nodeType(this.props)}`}
+          onMouseDown={() => onMouseDown(row, col)}
+          onMouseEnter={() => onMouseEnter(row, col)}
+          onMouseUp={() => onMouseUp()}
+        >
+          {weight}
+        </div>
       </div>
     );
   }

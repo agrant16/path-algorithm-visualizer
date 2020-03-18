@@ -1,8 +1,16 @@
+.node-box {
+  width: 26px;
+  height: 26px;
+  border: 1px solid black;
+  border-radius: 4px;
+  display: inline-block;
+}
 .node {
   width: 25px;
   height: 25px;
-  outline: 1px solid black;
   display: inline-block;
+  border-radius: 4px;
+
   color: black;
   font-weight: bold;
   -webkit-user-select: none; /* Webkit */
@@ -25,12 +33,53 @@
 
 .node-wall {
   background-color: black;
+  animation-name: wall;
+  animation-duration: 2s;
+}
+
+@keyframes wall {
+  from {
+    background-color: black;
+    transform: scale(0.25);
+  }
+  to {
+    background-color: black;
+    transform: scale(1);
+  }
 }
 
 .node-visited {
   background-color: #7fcde1;
+  animation-name: visited;
+  animation-duration: 2s;
+}
+
+@keyframes visited {
+  from {
+    transform: scale(0.25);
+    background-color: purple;
+  }
+
+  to {
+    transform: scale(1);
+    background-color: #7fcde1;
+  }
 }
 
 .node-shortest-path {
   background-color: #fffd81;
+  animation-name: shortest;
+  animation-duration: 2s;
+}
+
+@keyframes shortest {
+  from {
+    transform: scale(0.25);
+    background-color: red;
+  }
+
+  to {
+    transform: scale(1);
+    background-color: #fffd81;
+  }
 }

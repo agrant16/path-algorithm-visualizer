@@ -32,17 +32,6 @@ export default class Dijkstra extends Pathfinder {
     }
   }
 
-  getAllNodes(grid) {
-    const nodes = [];
-    for (let i = 0; i < 20; i++) {
-      for (let j = 0; j < 50; j++) {
-        if (grid[i][j].isVisited || grid[i][j].isWall) continue;
-        nodes.push(grid[i][j]);
-      }
-    }
-    return nodes;
-  }
-
   sortNodesByDistance(unvisitedNodes) {
     unvisitedNodes.sort((nodeA, nodeB) => nodeA.distance - nodeB.distance);
   }
