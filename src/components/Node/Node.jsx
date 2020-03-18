@@ -28,7 +28,7 @@ export default class Node extends Component {
           onMouseEnter={() => onMouseEnter(row, col)}
           onMouseUp={() => onMouseUp()}
         >
-          {weight}
+          <p>{weight}</p>
         </div>
       </div>
     );
