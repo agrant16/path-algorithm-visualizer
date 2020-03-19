@@ -16,7 +16,7 @@ export default class Header extends Component {
           <Navbar.Brand href=".">Pathfinding Algorithm Visualizer</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="mr-auto" disable={this.props.visualized}>
+            <Nav className="mr-auto" disabled={this.props.visualized}>
               <NavDropdown
                 title="Algorithms"
                 id="basic-nav-dropdown"
@@ -53,13 +53,6 @@ export default class Header extends Component {
               </NavDropdown>
               <Button
                 className="non-visualize-button"
-                onClick={this.props.clearBoard}
-                disabled={this.props.visualized}
-              >
-                Clear Board
-              </Button>
-              <Button
-                className="non-visualize-button"
                 onClick={this.props.changeWeights}
                 disabled={this.props.visualized}
               >
@@ -72,6 +65,29 @@ export default class Header extends Component {
               >
                 Visualize It!
               </Button>
+              <Button
+                className="non-visualize-button"
+                onClick={this.props.clearBoard}
+                disabled={this.props.visualized}
+              >
+                Clear Board
+              </Button>
+              <NavDropdown
+                title="Maze Algorithms"
+                id="basic-nav-dropdown"
+                className="my-dropdown"
+              >
+                {" "}
+                <NavDropdown.Item
+                  href="#"
+                  className="my-dropdown-item"
+                  onClick={() => {
+                    this.props.generateMaze("Random");
+                  }}
+                >
+                  Random Walls
+                </NavDropdown.Item>
+              </NavDropdown>
             </Nav>
           </Navbar.Collapse>
         </Navbar>
