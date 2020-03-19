@@ -5,6 +5,13 @@ import Pathfinder from "./Pathfinder";
 
 export default class Dijkstra extends Pathfinder {
   static weighted = true;
+  static text = `Dijkstra's shortest path algorithm works on weighted graphs and
+guarantees the shortest path. This algorithm works similarly to breadth-first
+search in that it begins at the start node and then works it's way outward in
+all directions. As it works outwards it checks the edges (u,v,w) to see if
+u.distance + w is less than v.distance. If so it updates v.distance to hold
+u.distance + w. It continues this process until no more nodes can be visited,
+or until the destination node is found.`;
 
   traverse(grid, startNode, endNode) {
     const visitedNodesInOrder = [];

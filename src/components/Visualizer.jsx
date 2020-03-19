@@ -5,6 +5,7 @@ import Animator from "./Animator";
 import Dijkstra from "../algorithms/Dijkstra";
 import BFS from "../algorithms/BFS";
 import DFS from "../algorithms/DFS";
+import BellmanFord from "../algorithms/BellmanFord";
 import Grid from "./Grid";
 import "./Visualizer.css";
 
@@ -119,6 +120,11 @@ export default class Visualizer extends Component {
         newAlgoText = "Depth-First Search";
         newGrid = new Grid(DFS.weighted, start, end);
         break;
+      case "Bellman-Ford":
+        newAlgo = BellmanFord;
+        newAlgoText = "Bellman-Ford";
+        newGrid = new Grid(BellmanFord.weighted, start, end);
+        break;
       default:
         return;
     }
@@ -160,10 +166,12 @@ export default class Visualizer extends Component {
     const endNode = grid.grid[end[0]][end[1]];
     let visitedNodesInOrder = traverser.traverse(grid.grid, startNode, endNode);
     let shortestPath = traverser.getShortestPath(startNode, endNode);
+    console.log(visitedNodesInOrder.length);
+    console.log(shortestPath.length);
     animator.animate(visitedNodesInOrder, shortestPath);
     let buttonLockTime = Math.max(
       (visitedNodesInOrder.length + shortestPath.length) * 12.5,
-      10000
+      8000
     );
     setTimeout(() => this.setState({ visualized: false }), buttonLockTime);
   }
@@ -237,7 +245,7 @@ the previous grid to a new grid.*/
   }
 
   render() {
-    const { grid, mouseIsPressed, visualized } = this.state;
+    const { grid, mouseIsPressed, visualized, algo } = this.state;
     return (
       <div>
         <Header
@@ -250,6 +258,7 @@ the previous grid to a new grid.*/
         ></Header>
 
         <h3>The current algorithm is {this.state.algoText}.</h3>
+        <div className="information">{algo.text}</div>
         <div className="board">
           {grid.grid.map((row, rowIndex) => {
             return (
