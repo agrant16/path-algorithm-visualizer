@@ -6,6 +6,7 @@ import Dijkstra from "../algorithms/Dijkstra";
 import BFS from "../algorithms/BFS";
 import DFS from "../algorithms/DFS";
 import BellmanFord from "../algorithms/BellmanFord";
+import { randomWalls } from "../mazes/mazes";
 import Grid from "./Grid";
 import "./Visualizer.css";
 
@@ -37,6 +38,7 @@ export default class Visualizer extends Component {
     this.algoChange = this.algoChange.bind(this);
     this.clearBoard = this.clearBoard.bind(this);
     this.newWeights = this.newWeights.bind(this);
+    this.generateMaze = this.generateMaze.bind(this);
   }
 
   /* The handleMouseXxxx functions handle the
@@ -171,7 +173,7 @@ export default class Visualizer extends Component {
     animator.animate(visitedNodesInOrder, shortestPath);
     let buttonLockTime = Math.max(
       (visitedNodesInOrder.length + shortestPath.length) * 12.5,
-      8000
+      5000
     );
     setTimeout(() => this.setState({ visualized: false }), buttonLockTime);
   }
@@ -244,6 +246,20 @@ the previous grid to a new grid.*/
     return newGrid;
   }
 
+  generateMaze(type) {
+    const { grid, start, end } = this.state;
+    this.unvisitNodes(true, start, end);
+    console.log(grid);
+    switch (type) {
+      case "Random":
+        randomWalls(grid);
+        break;
+      default:
+        return;
+    }
+    this.setState({ grid: grid });
+  }
+
   render() {
     const { grid, mouseIsPressed, visualized, algo } = this.state;
     return (
@@ -255,6 +271,7 @@ the previous grid to a new grid.*/
           clearBoard={this.clearBoard}
           changeWeights={this.newWeights}
           visualized={visualized}
+          generateMaze={this.generateMaze}
         ></Header>
 
         <h3>The current algorithm is {this.state.algoText}.</h3>
