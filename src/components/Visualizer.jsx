@@ -83,6 +83,8 @@ export default class Visualizer extends Component {
   }
 
   handleMouseUp() {
+    const { visualized } = this.state;
+    if (visualized) return;
     this.setState({
       mouseIsPressed: false,
       movingStart: false,
@@ -92,10 +94,12 @@ export default class Visualizer extends Component {
 
   /* Handles the selection of algorithms.*/
   algoChange(text) {
+    const { grid, start, end, visualized } = this.state;
+    if (visualized) return;
     let newAlgo = null;
     let newAlgoText = null;
     let newGrid = null;
-    const { grid, start, end } = this.state;
+
     this.unvisitNodes(false, start, end);
     switch (text) {
       case "Dijkstra":
@@ -146,17 +150,20 @@ export default class Visualizer extends Component {
   /* Runs the process of visualizing the algorithm.*/
   visualize() {
     const { grid, algo, visualized, start, end, animator } = this.state;
-    if (visualized) {
-      this.unvisitNodes(false, start, end);
-      this.setState({ visualized: false });
-    }
+    if (visualized) return;
+    this.unvisitNodes(false, start, end);
+    this.setState({ visualized: true });
     const traverser = new algo();
     const startNode = grid.grid[start[0]][start[1]];
     const endNode = grid.grid[end[0]][end[1]];
     let visitedNodesInOrder = traverser.traverse(grid.grid, startNode, endNode);
     let shortestPath = traverser.getShortestPath(startNode, endNode);
     animator.animate(visitedNodesInOrder, shortestPath);
-    this.setState({ visualized: true });
+    let buttonLockTime = Math.max(
+      (visitedNodesInOrder.length + shortestPath.length) * 12.5,
+      10000
+    );
+    setTimeout(() => this.setState({ visualized: false }), buttonLockTime);
   }
 
   unvisitNodes(removeWalls, start, end) {
@@ -192,12 +199,16 @@ export default class Visualizer extends Component {
   /* Resets the nodes back to default state if removeWalls === true.
   If removeWalls === false, then walls are kept in place.*/
   clearBoard() {
+    const { visualized } = this.state;
+    if (visualized) return;
     this.unvisitNodes(true, DEFAULT_START, DEFAULT_END);
+    this.setState({ start: DEFAULT_START, end: DEFAULT_END });
   }
 
   /* Creates a new Grid object with new weights.*/
   newWeights() {
-    const { grid, algo, start, end } = this.state;
+    const { grid, algo, start, end, visualized } = this.state;
+    if (visualized) return;
     this.unvisitNodes(false, start, end);
     const newGrid = new Grid(algo.weighted, start, end);
     for (let row = 0; row < 20; row++) {
@@ -224,7 +235,7 @@ the previous grid to a new grid.*/
   }
 
   render() {
-    const { grid, mouseIsPressed } = this.state;
+    const { grid, mouseIsPressed, visualized } = this.state;
     return (
       <div>
         <Header
@@ -233,6 +244,7 @@ the previous grid to a new grid.*/
           changeSpeed={this.speedChange}
           clearBoard={this.clearBoard}
           changeWeights={this.newWeights}
+          visualized={visualized}
         ></Header>
 
         <h3>The current algorithm is {this.state.algoText}.</h3>

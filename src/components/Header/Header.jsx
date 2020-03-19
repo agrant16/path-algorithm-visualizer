@@ -16,7 +16,7 @@ export default class Header extends Component {
           <Navbar.Brand href=".">Pathfinding Algorithm Visualizer</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="mr-auto">
+            <Nav className="mr-auto" disable={this.props.visualized}>
               <NavDropdown
                 title="Algorithms"
                 id="basic-nav-dropdown"
@@ -47,18 +47,21 @@ export default class Header extends Component {
               <Button
                 className="non-visualize-button"
                 onClick={this.props.clearBoard}
+                disabled={this.props.visualized}
               >
                 Clear Board
               </Button>
               <Button
                 className="non-visualize-button"
                 onClick={this.props.changeWeights}
+                disabled={this.props.visualized}
               >
                 New Weights
               </Button>
               <Button
                 className="visualize-it-button"
                 onClick={this.props.visualize}
+                disabled={this.props.visualized}
               >
                 Visualize It!
               </Button>

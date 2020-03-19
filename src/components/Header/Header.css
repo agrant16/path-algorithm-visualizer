@@ -28,6 +28,10 @@
   color: white;
   background-color: inherit;
 }
+.non-visualize-button:disabled {
+  color: red;
+  background-color: inherit;
+}
 .visualize-it-button {
   border: none;
   color: white;
@@ -37,6 +41,9 @@
   font-size: 15px;
 }
 
+.visualize-it-button:disabled {
+  background-color: red;
+}
 .visualize-it-button:hover {
   background-color: green;
 }
