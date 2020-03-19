@@ -44,6 +44,9 @@
 .visualize-it-button:disabled {
   background-color: red;
 }
+.visualize-it-button:disabled:hover {
+  background-color: red;
+}
 .visualize-it-button:hover {
   background-color: green;
 }

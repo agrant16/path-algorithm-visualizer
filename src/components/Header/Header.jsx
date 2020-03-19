@@ -32,6 +32,13 @@ export default class Header extends Component {
                 <NavDropdown.Item
                   href="#"
                   className="my-dropdown-item"
+                  onClick={() => this.props.changeAlgo("Bellman-Ford")}
+                >
+                  Bellman-Ford
+                </NavDropdown.Item>
+                <NavDropdown.Item
+                  href="#"
+                  className="my-dropdown-item"
                   onClick={() => this.props.changeAlgo("BFS")}
                 >
                   BFS
