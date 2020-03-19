@@ -38,11 +38,9 @@ export default class Grid {
 
   toggleStart(row, col) {
     this.grid[row][col].isStart = !this.grid[row][col].isStart;
-    this.grid[row][col].isWall = false;
   }
   toggleEnd(row, col) {
     this.grid[row][col].isEnd = !this.grid[row][col].isEnd;
-    this.grid[row][col].isWall = false;
   }
   toggleWall(row, col) {
     this.grid[row][col].isWall = !this.grid[row][col].isWall;
