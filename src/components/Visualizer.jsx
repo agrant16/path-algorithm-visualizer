@@ -24,7 +24,7 @@ export default class Visualizer extends Component {
       grid: new Grid(Dijkstra.weighted, DEFAULT_START, DEFAULT_END),
       mouseIsPressed: false,
       animator: new Animator(),
-      visualize: false,
+      visualized: false,
       start: DEFAULT_START,
       end: DEFAULT_END,
       movingStart: false,
@@ -41,7 +41,8 @@ export default class Visualizer extends Component {
   /* The handleMouseXxxx functions handle the
   modifying of nodes to become walls.*/
   handleMouseDown(row, col) {
-    const { grid, start, prevStart, end, movingStart } = this.state;
+    const { grid, start, prevStart, end, movingStart, visualized } = this.state;
+    if (visualized) return;
     if (row === start[0] && col === start[1]) {
       this.setState({ movingStart: true });
     } else if (row === end[0] && col === end[1]) {
@@ -60,9 +61,10 @@ export default class Visualizer extends Component {
       mouseIsPressed,
       movingStart,
       movingEnd,
-      prevStart
+      prevStart,
+      visualized
     } = this.state;
-    if (!mouseIsPressed) return;
+    if (!mouseIsPressed || visualized) return;
     if (movingStart) {
       grid.toggleStart(row, col);
       grid.toggleStart(start[0], start[1]);
