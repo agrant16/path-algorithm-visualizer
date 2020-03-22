@@ -43,7 +43,7 @@ Clicking, or dragging your cursor over, existing walls will turn those walls bac
 Any walls built will persist through algorithm changes, weight changes, and visualizations. 
 To remove walls you will need to use the "Clear Board" button. 
 
-### Generating Mazers
+### Generating Mazes
 
 Currently there are two maze algorithms implement: random walls and the recursive division. 
 The random walls method generates a random number in the range [0, 1) for each node. 
