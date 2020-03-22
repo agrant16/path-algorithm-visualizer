@@ -77,7 +77,6 @@ export default class Header extends Component {
                 id="basic-nav-dropdown"
                 className="my-dropdown"
               >
-                {" "}
                 <NavDropdown.Item
                   href="#"
                   className="my-dropdown-item"
@@ -86,6 +85,15 @@ export default class Header extends Component {
                   }}
                 >
                   Random Walls
+                </NavDropdown.Item>
+                <NavDropdown.Item
+                  href="#"
+                  className="my-dropdown-item"
+                  onClick={() => {
+                    this.props.generateMaze("RecursiveDivision");
+                  }}
+                >
+                  Recursive Division
                 </NavDropdown.Item>
               </NavDropdown>
             </Nav>

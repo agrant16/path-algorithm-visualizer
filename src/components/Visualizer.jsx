@@ -6,7 +6,7 @@ import Dijkstra from "../algorithms/Dijkstra";
 import BFS from "../algorithms/BFS";
 import DFS from "../algorithms/DFS";
 import BellmanFord from "../algorithms/BellmanFord";
-import { randomWalls } from "../mazes/mazes";
+import { randomWalls, recursiveDivision } from "../mazes/mazes";
 import Grid from "./Grid";
 import "./Visualizer.css";
 
@@ -44,7 +44,7 @@ export default class Visualizer extends Component {
   /* The handleMouseXxxx functions handle the
   modifying of nodes to become walls.*/
   handleMouseDown(row, col) {
-    const { grid, start, prevStart, end, movingStart, visualized } = this.state;
+    const { grid, start, end, visualized } = this.state;
     if (visualized) return;
     if (row === start[0] && col === start[1]) {
       this.setState({ movingStart: true });
@@ -64,7 +64,6 @@ export default class Visualizer extends Component {
       mouseIsPressed,
       movingStart,
       movingEnd,
-      prevStart,
       visualized
     } = this.state;
     if (!mouseIsPressed || visualized) return;
@@ -168,8 +167,6 @@ export default class Visualizer extends Component {
     const endNode = grid.grid[end[0]][end[1]];
     let visitedNodesInOrder = traverser.traverse(grid.grid, startNode, endNode);
     let shortestPath = traverser.getShortestPath(startNode, endNode);
-    console.log(visitedNodesInOrder.length);
-    console.log(shortestPath.length);
     animator.animate(visitedNodesInOrder, shortestPath);
     let buttonLockTime = Math.max(
       (visitedNodesInOrder.length + shortestPath.length) * 12.5,
@@ -180,15 +177,15 @@ export default class Visualizer extends Component {
 
   unvisitNodes(removeWalls, start, end) {
     const { grid } = this.state;
-    for (let row = 0; row < 20; row++) {
-      for (let col = 0; col < 50; col++) {
+    for (let row = 0; row < 19; row++) {
+      for (let col = 0; col < 49; col++) {
         let node = grid.grid[row][col];
         document.getElementById(`node-${node.row}-${node.col}`).className =
           "node ";
         node.isVisited = false;
         node.previous = null;
         node.distance = Infinity;
-        if (node.isWall && removeWalls) {
+        if (removeWalls) {
           node.isWall = false;
         } else if (node.isWall) {
           document.getElementById(`node-${node.row}-${node.col}`).className =
@@ -208,6 +205,7 @@ export default class Visualizer extends Component {
     }
     this.setState({ grid: grid, visualized: false });
   }
+
   /* Resets the nodes back to default state if removeWalls === true.
   If removeWalls === false, then walls are kept in place.*/
   clearBoard() {
@@ -223,8 +221,8 @@ export default class Visualizer extends Component {
     if (visualized) return;
     this.unvisitNodes(false, start, end);
     const newGrid = new Grid(algo.weighted, start, end);
-    for (let row = 0; row < 20; row++) {
-      for (let col = 0; col < 50; col++) {
+    for (let row = 0; row < 19; row++) {
+      for (let col = 0; col < 49; col++) {
         if (grid.grid[row][col].isWall) {
           newGrid.grid[row][col].isWall = true;
         }
@@ -234,10 +232,10 @@ export default class Visualizer extends Component {
   }
 
   /* Function to transfer wall locations from
-the previous grid to a new grid.*/
+ the previous grid to a new grid.*/
   keepWalls(grid, newGrid) {
-    for (let row = 0; row < 20; row++) {
-      for (let col = 0; col < 50; col++) {
+    for (let row = 0; row < 19; row++) {
+      for (let col = 0; col < 49; col++) {
         if (grid.grid[row][col].isWall) {
           newGrid.grid[row][col].isWall = true;
         }
@@ -249,15 +247,23 @@ the previous grid to a new grid.*/
   generateMaze(type) {
     const { grid, start, end } = this.state;
     this.unvisitNodes(true, start, end);
-    console.log(grid);
     switch (type) {
       case "Random":
         randomWalls(grid);
+        break;
+      case "RecursiveDivision":
+        recursiveDivision(grid);
         break;
       default:
         return;
     }
     this.setState({ grid: grid });
+    /*
+    For some reason the following line is needed to
+    actually render things correctly if you try and
+    generate two mazes without doing some other action.
+    */
+    this.unvisitNodes(false, start, end);
   }
 
   render() {

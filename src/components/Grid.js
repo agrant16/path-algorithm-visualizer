@@ -26,9 +26,9 @@ export default class Grid {
 
   initializeGrid(weighted, start, end) {
     const grid = [];
-    for (let row = 0; row < 20; row++) {
+    for (let row = 0; row < 19; row++) {
       const newRow = [];
-      for (let col = 0; col < 50; col++) {
+      for (let col = 0; col < 49; col++) {
         newRow.push(this.initializeNode(row, col, weighted, start, end));
       }
       grid.push(newRow);
