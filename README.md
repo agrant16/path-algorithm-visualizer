@@ -42,3 +42,12 @@ You can click your mouse, hold it and drag it in order to create larger walls.
 Clicking, or dragging your cursor over, existing walls will turn those walls back to normal nodes.  
 Any walls built will persist through algorithm changes, weight changes, and visualizations. 
 To remove walls you will need to use the "Clear Board" button. 
+
+### Generating Mazers
+
+Currently there are two maze algorithms implement: random walls and the recursive division. 
+The random walls method generates a random number in the range [0, 1) for each node. 
+Based on this number the node is transformed to a wall. 
+The recursive division method follows the basic [recursive division algorithm](https://en.wikipedia.org/wiki/Maze_generation_algorithm#Recursive_division_method) with one difference. 
+The difference is that instead of generating a single passage in each wall here we generate multiple. 
+This allows for mulitple paths between the start and end node instead of just a single path. 
