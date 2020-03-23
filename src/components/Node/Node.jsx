@@ -6,6 +6,17 @@ import "./Node.css";
 React compoenent used to represent the Nodes in the generated page.
 */
 export default class Node extends Component {
+  nodeType = node => {
+    const type = node.isEnd
+      ? "node-end"
+      : node.isStart
+      ? "node-start"
+      : node.isWall
+      ? "node-wall"
+      : " ";
+    return type;
+  };
+
   render() {
     const {
       col,
@@ -23,7 +34,7 @@ export default class Node extends Component {
       <div className="node-box">
         <div
           id={`node-${row}-${col}`}
-          className={`node ${nodeType(this.props)}`}
+          className={`node ${this.nodeType(this.props)}`}
           onMouseDown={() => onMouseDown(row, col)}
           onMouseEnter={() => onMouseEnter(row, col)}
           onMouseUp={() => onMouseUp()}
@@ -34,14 +45,3 @@ export default class Node extends Component {
     );
   }
 }
-
-const nodeType = node => {
-  const type = node.isEnd
-    ? "node-end"
-    : node.isStart
-    ? "node-start"
-    : node.isWall
-    ? "node-wall"
-    : " ";
-  return type;
-};
