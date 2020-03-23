@@ -16,35 +16,35 @@ export default class Header extends Component {
           <Navbar.Brand href=".">Pathfinding Algorithm Visualizer</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="mr-auto" disabled={this.props.visualized}>
+            <Nav className="mr-auto">
               <NavDropdown
                 title="Algorithms"
                 id="basic-nav-dropdown"
-                className="my-dropdown"
+                disabled={this.props.visualized}
               >
                 <NavDropdown.Item
-                  href="#"
+                  href="#dijkstra"
                   className="my-dropdown-item"
                   onClick={() => this.props.changeAlgo("Dijkstra")}
                 >
                   Djikstra's
                 </NavDropdown.Item>
                 <NavDropdown.Item
-                  href="#"
+                  href="#bellman-ford"
                   className="my-dropdown-item"
                   onClick={() => this.props.changeAlgo("Bellman-Ford")}
                 >
                   Bellman-Ford
                 </NavDropdown.Item>
                 <NavDropdown.Item
-                  href="#"
+                  href="#bfs"
                   className="my-dropdown-item"
                   onClick={() => this.props.changeAlgo("BFS")}
                 >
                   BFS
                 </NavDropdown.Item>
                 <NavDropdown.Item
-                  href="#"
+                  href="#dfs"
                   className="my-dropdown-item"
                   onClick={() => this.props.changeAlgo("DFS")}
                 >
@@ -76,9 +76,10 @@ export default class Header extends Component {
                 title="Maze Algorithms"
                 id="basic-nav-dropdown"
                 className="my-dropdown"
+                disabled={this.props.visualized}
               >
                 <NavDropdown.Item
-                  href="#"
+                  href="#random"
                   className="my-dropdown-item"
                   onClick={() => {
                     this.props.generateMaze("Random");
@@ -87,7 +88,7 @@ export default class Header extends Component {
                   Random Walls
                 </NavDropdown.Item>
                 <NavDropdown.Item
-                  href="#"
+                  href="#recursive-division"
                   className="my-dropdown-item"
                   onClick={() => {
                     this.props.generateMaze("RecursiveDivision");
@@ -100,9 +101,10 @@ export default class Header extends Component {
                 title="Speed"
                 id="basic-nav-dropdown"
                 className="my-dropdown"
+                disabled={this.props.visualized}
               >
                 <NavDropdown.Item
-                  href="#"
+                  href="#slow"
                   className="my-dropdown-item"
                   onClick={() => {
                     this.props.changeSpeed("Slow");
@@ -111,7 +113,7 @@ export default class Header extends Component {
                   Slow
                 </NavDropdown.Item>
                 <NavDropdown.Item
-                  href="#"
+                  href="#average"
                   className="my-dropdown-item"
                   onClick={() => {
                     this.props.changeSpeed("Average");
@@ -120,7 +122,7 @@ export default class Header extends Component {
                   Average
                 </NavDropdown.Item>
                 <NavDropdown.Item
-                  href="#"
+                  href="#fast"
                   className="my-dropdown-item"
                   onClick={() => {
                     this.props.changeSpeed("Fast");

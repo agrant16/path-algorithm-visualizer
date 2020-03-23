@@ -139,8 +139,8 @@ export default class Visualizer extends Component {
     let { visitedSpeed, shortestSpeed } = [0, 0];
     switch (text) {
       case "Slow":
-        visitedSpeed = 40;
-        shortestSpeed = 200;
+        visitedSpeed = 75;
+        shortestSpeed = 375;
         break;
       case "Average":
         visitedSpeed = 25;
@@ -166,13 +166,18 @@ export default class Visualizer extends Component {
     const traverser = new algo();
     const startNode = grid.grid[start[0]][start[1]];
     const endNode = grid.grid[end[0]][end[1]];
+    if (startNode.isWall) {
+      startNode.isWall = !startNode.isWall;
+    }
+    if (endNode.isWall) {
+      endNode.isWall = !endNode.isWall;
+    }
     let visitedNodesInOrder = traverser.traverse(grid.grid, startNode, endNode);
     let shortestPath = traverser.getShortestPath(startNode, endNode);
     animator.animate(visitedNodesInOrder, shortestPath);
-    let buttonLockTime = Math.max(
-      (visitedNodesInOrder.length + shortestPath.length) * algo._time,
-      5000
-    );
+    let buttonLockTime =
+      visitedNodesInOrder.length * animator.visitedSpeed +
+      shortestPath.length * animator.shortestSpeed;
     setTimeout(() => this.setState({ visualized: false }), buttonLockTime);
   }
 
