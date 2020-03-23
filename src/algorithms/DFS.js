@@ -26,10 +26,12 @@ export default class DFS extends Pathfinder {
       visitedNodesInOrder.push(currentNode);
       let neighbors = this.getUnvisitedNeighbors(currentNode, grid);
 
-      let n = neighbors.length;
-      /*for (let i = 0; i < n; i++) {
+      // Random neighbor selection
+      /*let n = neighbors.length;
+      for (let i = 0; i < n; i++) {
         let remove = Math.floor(Math.random() * neighbors.length);
         let neighbor = neighbors.splice(remove, 1)[0];*/
+
       for (const neighbor of neighbors) {
         neighbor.previous = currentNode;
         unvisited.push(neighbor);
