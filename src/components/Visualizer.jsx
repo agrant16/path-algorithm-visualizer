@@ -138,15 +138,15 @@ export default class Visualizer extends Component {
   speedChange(text) {
     let { visitedSpeed, shortestSpeed } = [0, 0];
     switch (text) {
-      case "slow":
-        visitedSpeed = 100;
-        shortestSpeed = 500;
+      case "Slow":
+        visitedSpeed = 40;
+        shortestSpeed = 200;
         break;
-      case "average":
-        visitedSpeed = 50;
-        shortestSpeed = 250;
+      case "Average":
+        visitedSpeed = 25;
+        shortestSpeed = 125;
         break;
-      case "fast":
+      case "Fast":
         visitedSpeed = 10;
         shortestSpeed = 50;
         break;
@@ -154,6 +154,7 @@ export default class Visualizer extends Component {
         return;
     }
     this.state.animator.updateSpeed(visitedSpeed, shortestSpeed);
+    console.log(this.state.animator);
   }
 
   /* Runs the process of visualizing the algorithm.*/
@@ -169,7 +170,7 @@ export default class Visualizer extends Component {
     let shortestPath = traverser.getShortestPath(startNode, endNode);
     animator.animate(visitedNodesInOrder, shortestPath);
     let buttonLockTime = Math.max(
-      (visitedNodesInOrder.length + shortestPath.length) * 12.5,
+      (visitedNodesInOrder.length + shortestPath.length) * algo._time,
       5000
     );
     setTimeout(() => this.setState({ visualized: false }), buttonLockTime);
