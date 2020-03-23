@@ -4,7 +4,7 @@ export default class DFS extends Pathfinder {
   static _time = 25;
   static text = `Depth-first search works on unweighted graphs and does not
   guarantee the shortest path. This algorithm visits one node at a time. At
-  each node it visits it randomly selects an unvisited neighbor and moves to
+  each node it visits it selects an unvisited neighbor and moves to
   that node. It repeats this process until it reaches a node with no unvisited
   neighbors. It then backtracks to a node which has unvisited neighbors and
   moves forward down that path. It repeats this until all nodes that can

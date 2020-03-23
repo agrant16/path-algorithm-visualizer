@@ -22,7 +22,7 @@ export default class Visualizer extends Component {
     this.state = {
       algo: Dijkstra,
       algoText: "Dijkstra's",
-      speed: "fast",
+      speed: "Fast",
       grid: new Grid(Dijkstra.weighted, DEFAULT_START, DEFAULT_END),
       mouseIsPressed: false,
       animator: new Animator(),
