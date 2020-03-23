@@ -27,6 +27,7 @@ Any changes to the starting and ending node's locations will persist until the "
 Once an algorithm is selected you can visualize the algorithm by pressing the "Visualize It!" button. 
 Doing so will change the color of nodes on the graph in the order they are visited. 
 Once the end node is reached the shortest path will be displayed in yellow. 
+Buttons will be disabled for the majority of the animation process. 
 
 ### Weighted Graphs and Non-Weighted Graphs
 The app will automatically generate edge weights for algorithms that are meant for weighted graphs. 
@@ -51,3 +52,12 @@ Based on this number the node is transformed to a wall.
 The recursive division method follows the basic [recursive division algorithm](https://en.wikipedia.org/wiki/Maze_generation_algorithm#Recursive_division_method) with one difference. 
 The difference is that instead of generating a single passage in each wall here we generate multiple. 
 This allows for mulitple paths between the start and end node instead of just a single path. 
+
+### Changing Speed
+
+This setting adjusts the animation speed of the app.
+There are three settings: "Slow", "Average", and "Fast."
+The default setting is "Fast."
+Changing to the "Slow" setting will increase animation time by quite a bit and currently the buttons will not remain
+disabled for the entire time. 
+This can cause some "interesting" effects if you begin changing things while the animation is running.
