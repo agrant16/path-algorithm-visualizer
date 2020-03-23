@@ -9,7 +9,7 @@ export default class Grid {
   initializeNode(row, col, weighted, start, end) {
     let weight = "0";
     if (weighted) {
-      weight = Math.floor(Math.random() * 5) + 1;
+      weight = Math.floor(Math.random() * 9) + 1;
     }
     return {
       col,

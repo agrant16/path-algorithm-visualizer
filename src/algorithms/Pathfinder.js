@@ -1,5 +1,6 @@
 /* Default class for other pathfinding algorithms to inherit from.*/
 export default class Pathfinder {
+  static _time = 12.5;
   getUnvisitedNeighbors(node, grid) {
     /* Get the unvisited neighbors of
     node which are not walls.*/

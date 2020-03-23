@@ -96,6 +96,39 @@ export default class Header extends Component {
                   Recursive Division
                 </NavDropdown.Item>
               </NavDropdown>
+              <NavDropdown
+                title="Speed"
+                id="basic-nav-dropdown"
+                className="my-dropdown"
+              >
+                <NavDropdown.Item
+                  href="#"
+                  className="my-dropdown-item"
+                  onClick={() => {
+                    this.props.changeSpeed("Slow");
+                  }}
+                >
+                  Slow
+                </NavDropdown.Item>
+                <NavDropdown.Item
+                  href="#"
+                  className="my-dropdown-item"
+                  onClick={() => {
+                    this.props.changeSpeed("Average");
+                  }}
+                >
+                  Average
+                </NavDropdown.Item>
+                <NavDropdown.Item
+                  href="#"
+                  className="my-dropdown-item"
+                  onClick={() => {
+                    this.props.changeSpeed("Fast");
+                  }}
+                >
+                  Fast
+                </NavDropdown.Item>
+              </NavDropdown>
             </Nav>
           </Navbar.Collapse>
         </Navbar>

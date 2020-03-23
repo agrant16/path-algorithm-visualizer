@@ -8,7 +8,7 @@ export default class Animator {
       if (i === visitedNodesInOrder.length) {
         setTimeout(() => {
           this.animateShortestPath(nodesInShortestPathOrder);
-        }, 10 * i);
+        }, this.visitedSpeed * i);
         return;
       }
       setTimeout(() => {
