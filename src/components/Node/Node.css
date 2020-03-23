@@ -32,7 +32,7 @@
 .node-wall {
   background-color: black;
   animation-name: wall;
-  animation-duration: 2s;
+  animation-duration: 1s;
 }
 
 @keyframes wall {
