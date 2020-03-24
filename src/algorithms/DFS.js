@@ -19,9 +19,7 @@ export default class DFS extends Pathfinder {
     while (unvisited.length !== 0) {
       //console.log(unvisited);
       let currentNode = unvisited.pop();
-      if (currentNode === endNode) {
-        return visitedNodesInOrder;
-      }
+      if (currentNode === endNode) return visitedNodesInOrder;
       currentNode.isVisited = true;
       visitedNodesInOrder.push(currentNode);
       let neighbors = this.getUnvisitedNeighbors(currentNode, grid);

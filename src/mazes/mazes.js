@@ -4,7 +4,7 @@ export function randomWalls(grid) {
     for (let col = 0; col < 49; col++) {
       let decider = Math.random();
       if (
-        (decider <= 0.165 || decider >= 0.835) &&
+        (decider <= 0.1 || decider >= 0.85) &&
         (!grid.grid[row][col].isStart && !grid.grid[row][col].isEnd)
       ) {
         grid.toggleWall(row, col);
