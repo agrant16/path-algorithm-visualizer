@@ -41,8 +41,11 @@ export default class Visualizer extends Component {
     this.generateMaze = this.generateMaze.bind(this);
   }
 
-  /* The handleMouseXxxx functions handle the
-  modifying of nodes to become walls.*/
+  /*
+  The handleMouseXxxx functions handle the
+  modifying of nodes to become walls and also
+  the moving of the start and ending nodes.
+  */
   handleMouseDown(row, col) {
     const { grid, start, end, visualized } = this.state;
     if (visualized) return;
@@ -100,61 +103,62 @@ export default class Visualizer extends Component {
   algoChange(text) {
     const { grid, start, end, visualized } = this.state;
     if (visualized) return;
-    let newAlgo = null;
-    let newAlgoText = null;
-    let newGrid = null;
+    const algo = {};
 
     this.unvisitNodes(false, start, end);
     switch (text) {
       case "Dijkstra":
-        newAlgo = Dijkstra;
-        newAlgoText = "Dijkstra's";
-        newGrid = new Grid(Dijkstra.weighted, start, end);
+        algo.newAlgo = Dijkstra;
+        algo.newAlgoText = "Dijkstra's";
+        algo.newGrid = new Grid(Dijkstra.weighted, start, end);
         break;
       case "BFS":
-        newAlgo = BFS;
-        newAlgoText = "Breadth-First Search";
-        newGrid = new Grid(BFS.weighted, start, end);
+        algo.newAlgo = BFS;
+        algo.newAlgoText = "Breadth-First Search";
+        algo.newGrid = new Grid(BFS.weighted, start, end);
         break;
       case "DFS":
-        newAlgo = DFS;
-        newAlgoText = "Depth-First Search";
-        newGrid = new Grid(DFS.weighted, start, end);
+        algo.newAlgo = DFS;
+        algo.newAlgoText = "Depth-First Search";
+        algo.newGrid = new Grid(DFS.weighted, start, end);
         break;
       case "Bellman-Ford":
-        newAlgo = BellmanFord;
-        newAlgoText = "Bellman-Ford";
-        newGrid = new Grid(BellmanFord.weighted, start, end);
+        algo.newAlgo = BellmanFord;
+        algo.newAlgoText = "Bellman-Ford";
+        algo.newGrid = new Grid(BellmanFord.weighted, start, end);
         break;
       default:
         return;
     }
-    newGrid = this.keepWalls(grid, newGrid);
-    this.setState({ algo: newAlgo, algoText: newAlgoText, grid: newGrid });
+    algo.newGrid = this.keepWalls(grid, algo.newGrid);
+    this.setState({
+      algo: algo.newAlgo,
+      algoText: algo.newAlgoText,
+      grid: algo.newGrid
+    });
   }
 
   /* Handles the speed selection updating.
   This feature is currently not implemented.*/
   speedChange(text) {
-    let { visitedSpeed, shortestSpeed } = [0, 0];
+    const speeds = {};
     switch (text) {
       case "Slow":
-        visitedSpeed = 75;
-        shortestSpeed = 375;
+        speeds.visitedSpeed = 75;
+        speeds.shortestSpeed = 375;
         break;
       case "Average":
-        visitedSpeed = 25;
-        shortestSpeed = 125;
+        speeds.visitedSpeed = 25;
+        speeds.shortestSpeed = 125;
         break;
       case "Fast":
-        visitedSpeed = 10;
-        shortestSpeed = 50;
+        speeds.visitedSpeed = 10;
+        speeds.shortestSpeed = 50;
         break;
       default:
         return;
     }
-    this.state.animator.updateSpeed(visitedSpeed, shortestSpeed);
-    console.log(this.state.animator);
+    this.state.animator.updateSpeed(speeds.visitedSpeed, speeds.shortestSpeed);
   }
 
   /* Runs the process of visualizing the algorithm.*/
@@ -250,6 +254,7 @@ export default class Visualizer extends Component {
     return newGrid;
   }
 
+  /* Handles the generation of implemented mazes.*/
   generateMaze(type) {
     const { grid, start, end } = this.state;
     this.unvisitNodes(true, start, end);
