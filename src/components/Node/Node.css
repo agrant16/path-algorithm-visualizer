@@ -2,14 +2,12 @@
   width: 26px;
   height: 26px;
   border: 1px solid black;
-  /*border-radius: 4px;*/
   display: inline-block;
 }
 .node {
   width: 25px;
   height: 25px;
   display: inline-block;
-  /*border-radius: 4px;*/
   text-align: center;
   color: black;
   -webkit-user-select: none; /* Webkit */
@@ -31,19 +29,6 @@
 
 .node-wall {
   background-color: black;
-  animation-name: wall;
-  animation-duration: 1s;
-}
-
-@keyframes wall {
-  from {
-    background-color: black;
-    transform: scale(0.25);
-  }
-  to {
-    background-color: black;
-    transform: scale(1);
-  }
 }
 
 .node-visited {
