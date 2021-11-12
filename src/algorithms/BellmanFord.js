@@ -7,7 +7,7 @@ export default class BellmanFord extends Pathfinder {
   all edges in the graph. For each edge (u,v,w) it "relaxes" the edge
   by checking to see if u.distance + w is less than v.distance.
   If so, then v.distance is updated to hold u.distance + w. After |V| - 1
-  interations we will no the shortest path from the start node to the end node.
+  interations we will know the shortest path from the start node to the end node.
   For this visualization I consider a node visited the first time an edge
   including the node is looked at. In this manner any node with no edges, i.e
   a single node surrounded by walls, is never visited.`;
